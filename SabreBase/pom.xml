@@ -4,19 +4,19 @@
                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>SabreAPIs</groupId>
-	<artifactId>DestinationFinder</artifactId>
+	<artifactId>SabreBase</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<dependencies>
-		<dependency>
-			<groupId>SabreAPIs</groupId>
-			<artifactId>SabreBase</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
-	<url>https://github.com/KennethAdamMiller/SabreAPI</url>
+	<url>https://github.com/KennethAdamMiller/SabreAPI/SabreBase</url>
 	<properties>
 		<github.global.server>github</github.global.server>
 	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.codehaus.jettison</groupId>
+			<artifactId>jettison</artifactId>
+			<version>1.3.5</version>
+		</dependency>
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
@@ -26,8 +26,8 @@
 				<configuration>
 					<message>Maven artifacts for ${project.version}</message>
 					<noJekyll>true</noJekyll>
-					<outputDirectory>${project.build.directory}/mvn-DestinationFinder-repo</outputDirectory> <!-- matches distribution management repository url above -->
-					<branch>refs/heads/mvn-DestinationFinder-repo</branch>
+					<outputDirectory>${project.build.directory}/mvn-SabreBase-repo</outputDirectory> <!-- matches distribution management repository url above -->
+					<branch>refs/heads/mvn-SabreBase-repo</branch>
 				</configuration>
 				<executions>
 					<execution>
@@ -42,19 +42,12 @@
 				<artifactId>maven-deploy-plugin</artifactId>
 				<version>2.8.1</version>
 				<configuration>
-					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-DestinationFinder-repo</altDeploymentRepository>
+					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-SabreBase-repo</altDeploymentRepository>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
-	<repositories>
-	    		<repository>
-			<id>SabreAPI.SabreCore</id>
-			<name>SabreAPI</name>
-			<url>https://github.com/KennethAdamMiller/SabreAPI/tree/mvn-SabreCore-repo</url>
-		</repository>
-	</repositories>
 	<distributionManagement>
 		<repository>
 			<id>internal.repo</id>
@@ -62,6 +55,4 @@
 			<url>file://${project.build.directory}/mvn-repo</url>
 		</repository>
 	</distributionManagement>
-
 </project>
-

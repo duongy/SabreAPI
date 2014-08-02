@@ -1,3 +1,7 @@
 package com.sabre.DestinationFinder;
 
-import com.sabre.core.DSCommHandler;
+import com.sabre.SabreBase.DSCommHandler;
+
+public class DestinationFinder {
+	
+}

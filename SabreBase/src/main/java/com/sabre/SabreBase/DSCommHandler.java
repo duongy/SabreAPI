@@ -1,4 +1,4 @@
-package com.sabre.core;
+package com.sabre.SabreBase;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
