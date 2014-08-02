@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>SabreAPIs</groupId>
+  <artifactId>DestinationFinder</artifactId>
+  <versioning>
+    <versions>
+      <version>0.0.1-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20140802093612</lastUpdated>
+  </versioning>
+</metadata>
