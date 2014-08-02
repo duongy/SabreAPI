@@ -5,11 +5,20 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.concurrent.ExecutionException;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpParams;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -72,13 +81,13 @@ public class DSCommHandler {
 
 	@SuppressWarnings("deprecation")
 	public String sendRequest(String payLoad, String authToken) {
-		URLConnection conn = null;
+		HttpURLConnection conn = null;
 		String strRet = null;
 		try {
 			URL urlConn = new URL(payLoad);
 
 			conn = null;
-			conn = urlConn.openConnection();
+			conn = (HttpURLConnection) urlConn.openConnection();
 
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
@@ -86,7 +95,7 @@ public class DSCommHandler {
 
 			conn.setRequestProperty("Authorization", "Bearer " + authToken);
 			conn.setRequestProperty("Accept", "application/json");
-
+			
 			DataInputStream dataIn = new DataInputStream(conn.getInputStream());
 			String strChunk = "";
 			StringBuilder sb = new StringBuilder("");
@@ -128,17 +137,36 @@ public class DSCommHandler {
 			this.authToken = 
 					getAuthToken(target,
 							encodedClientIdSecret);
-			URLConnection conn = null;
+			
+			HttpResponse response = null;
+			try {        
+			        HttpClient client = new DefaultHttpClient();
+			        HttpGet request = new HttpGet();
+			        request.setURI(new URI(payLoad));
+			        response = client.execute(request);
+			    } catch (URISyntaxException e) {
+			        e.printStackTrace();
+			    } catch (ClientProtocolException e) {
+			        // TODO Auto-generated catch block
+			        e.printStackTrace();
+			    } catch (IOException e) {
+			        // TODO Auto-generated catch block
+			        e.printStackTrace();
+			    }   
+			    return response.getStatusLine().toString();
+			
+			
+			/*HttpURLConnection conn = null;
 			try {
 				URL urlConn = new URL(payLoad);
 
 				conn = null;
-				conn = urlConn.openConnection();
+				conn = (HttpURLConnection) urlConn.openConnection();
 
 				conn.setDoInput(true);
 				conn.setDoOutput(true);
-				conn.setUseCaches(false);
-
+				conn.setUseCaches(true);
+				conn.setRequestMethod("GET");
 				conn.setRequestProperty("Authorization", "Bearer " + authToken);
 				conn.setRequestProperty("Accept", "application/json");
 				DataInputStream dataIn = new DataInputStream(
@@ -156,11 +184,11 @@ public class DSCommHandler {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println("IOException: " + conn.getHeaderField(0));
+				Log.e("IOException: ", conn.getHeaderField(0));
 			}
 			if (conn!=null)
-				Log.i("Connection status: " , "");
-			return strRet;
+				Log.i("Connection status: " , (""));
+			return strRet;*/
 		}
 	}
 }
