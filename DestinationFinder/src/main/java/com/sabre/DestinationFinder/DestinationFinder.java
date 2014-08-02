@@ -13,7 +13,7 @@ public class DestinationFinder {
 	//
 	private final String clientId = "V1:8wwal2rsmapuiak7:DEVCENTER:EXT";
 	private final String clientSecret = "3M6EVsuo";
-	private final String target = "http://api.test.sabre.com";
+	private final String target = "https://api.test.sabre.com";
 	private final String endpoint = "/v1/shop/flights/fares";
 
 	// base64 encode clientId and clientSecret
